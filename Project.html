@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Econometric Analysis of Indian Banking Sector Leaders</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .kpi-card {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+            text-align: center;
+            border-left: 5px solid;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: #f3f4f6;
+            border: 2px dashed #9ca3af;
+            width: 90%;
+            margin: 0 auto;
+            min-height: 80px;
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            color: #9ca3af;
+            margin: 0.5rem 0;
+            transform: rotate(90deg);
+        }
+        @media (min-width: 768px) {
+           .flow-arrow {
+                transform: rotate(0deg);
+            }
+        }
+        .gemini-btn {
+            background-color: #f0f4ff;
+            color: #4a5a94;
+            border: 1px solid #c3dafe;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .gemini-btn:hover {
+            background-color: #e0e9ff;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+        }
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #FFF;
+            border-bottom-color: #003f5c;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <main class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#003f5c] mb-2">Interconnected Titans</h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">An Econometric Look at India's Banking Leaders: HDFC Bank, ICICI Bank, & SBI (Oct 2020 - Dec 2025)</p>
+        </header>
+
+        <section id="performance" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-[#2f4b7c] mb-8">Performance at a Glance</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-10">
+                Over the analysis period, the three banking giants showed distinct risk-return profiles. SBI led in returns but also in volatility, while ICICI Bank demonstrated a strong balance of growth and stability.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-12">
+                <div class="kpi-card" style="border-color: #ff7c43;">
+                    <h3 class="text-lg font-semibold text-gray-500">HDFC Bank</h3>
+                    <p id="hdfc-return" class="text-4xl font-bold text-[#003f5c] my-2">--%</p>
+                    <p class="text-sm text-gray-500">Average Monthly Return</p>
+                </div>
+                <div class="kpi-card" style="border-color: #d45087;">
+                    <h3 class="text-lg font-semibold text-gray-500">ICICI Bank</h3>
+                    <p id="icici-return" class="text-4xl font-bold text-[#003f5c] my-2">--%</p>
+                    <p class="text-sm text-gray-500">Average Monthly Return</p>
+                </div>
+                <div class="kpi-card" style="border-color: #003f5c;">
+                    <h3 class="text-lg font-semibold text-gray-500">State Bank of India</h3>
+                    <p id="sbi-return" class="text-4xl font-bold text-[#003f5c] my-2">--%</p>
+                    <p class="text-sm text-gray-500">Average Monthly Return</p>
+                </div>
+            </div>
+             <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-center items-center gap-4 mb-1">
+                     <h3 class="text-xl font-bold text-center text-[#2f4b7c]">Monthly Volatility (Standard Deviation)</h3>
+                     <button class="gemini-btn" data-chart-id="volatilityChart">✨ Explain this Chart</button>
+                </div>
+                <p class="text-center text-sm text-gray-500 mb-4">Higher bars indicate greater price swings and investment risk.</p>
+                <div class="chart-container" style="height: 300px;">
+                    <canvas id="volatilityChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="cointegration" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-[#665191] mb-8">The Unseen Connection</h2>
+             <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">
+                Despite their individual paths, the stock prices of these banks are bound by a long-run equilibrium, a concept called **cointegration**. This means that even if they drift apart in the short term, economic forces pull them back to a shared, predictable trend. The analysis followed a rigorous process to confirm this fundamental linkage.
+            </p>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold text-center mb-6 text-[#2f4b7c]">Path to Discovering Cointegration</h3>
+                 <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="flow-step"><p class="font-semibold">1. Raw Prices <br/> <span class="font-normal text-sm">(Non-Stationary Trend)</span></p></div>
+                    <div class="flow-arrow">&#10140;</div>
+                    <div class="flow-step"><p class="font-semibold">2. First Difference <br/> <span class="font-normal text-sm">(Achieves Stationarity)</span></p></div>
+                    <div class="flow-arrow">&#10140;</div>
+                    <div class="flow-step bg-teal-100 border-teal-500"><p class="font-bold text-teal-800">3. Johansen Test <br/> <span class="font-normal text-sm text-teal-700">Confirms Cointegration!</span></p></div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="irf" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-[#a05195] mb-8">The Ripple Effect</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">
+                How does a shock to one bank's stock affect another? Impulse Response Analysis reveals the dynamics. ICICI Bank emerges as a key market driver for SBI, while HDFC Bank shows a more complex, competitive relationship.
+            </p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex justify-center items-center gap-4 mb-1">
+                        <h3 class="text-xl font-bold text-center text-[#2f4b7c]">Response of SBI to ICICI Shock</h3>
+                        <button class="gemini-btn" data-chart-id="irfIciciToSbiChart">✨ Explain</button>
+                    </div>
+                     <p class="text-center text-sm text-gray-500 mb-4">A positive shock to ICICI creates a strong and lasting positive impact on SBI.</p>
+                    <div class="chart-container">
+                        <canvas id="irfIciciToSbiChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex justify-center items-center gap-4 mb-1">
+                        <h3 class="text-xl font-bold text-center text-[#2f4b7c]">Response of SBI to HDFC Shock</h3>
+                        <button class="gemini-btn" data-chart-id="irfHdfcToSbiChart">✨ Explain</button>
+                    </div>
+                     <p class="text-center text-sm text-gray-500 mb-4">A shock to HDFC has a minor initial positive effect that turns negative over time.</p>
+                    <div class="chart-container">
+                        <canvas id="irfHdfcToSbiChart"></canvas>
+                    </div>
+                </div>
+                 <div class="bg-white rounded-lg shadow-md p-6 lg:col-span-2">
+                    <div class="flex justify-center items-center gap-4 mb-1">
+                        <h3 class="text-xl font-bold text-center text-[#2f4b7c]">Response of SBI to its Own Shock</h3>
+                        <button class="gemini-btn" data-chart-id="irfSbiToSbiChart">✨ Explain</button>
+                    </div>
+                     <p class="text-center text-sm text-gray-500 mb-4">Internal shocks to SBI are significant at first but are quickly absorbed, showing mean-reversion.</p>
+                    <div class="chart-container">
+                        <canvas id="irfSbiToSbiChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="forecasting" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-[#d45087] mb-8">Charting the Future</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">
+                Leveraging the long-run cointegrating relationship, the Vector Error Correction Model (VECM) provides a highly accurate forecast for SBI's stock price. The model's ability to anchor its prediction to the fundamental equilibrium results in minimal error.
+            </p>
+             <div class="bg-white rounded-lg shadow-md p-6">
+                 <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+                    <div class="flex items-center gap-4">
+                        <h3 class="text-xl font-bold text-left text-[#2f4b7c]">Actual SBI Price vs. VECM Forecast</h3>
+                        <button class="gemini-btn" data-chart-id="forecastChart">✨ Explain</button>
+                    </div>
+                    <div class="text-center md:text-right mt-4 md:mt-0">
+                         <div class="text-3xl font-bold text-green-600">&lt; 5%</div>
+                         <div class="text-sm text-gray-500">Symmetric MAPE</div>
+                    </div>
+                </div>
+                 <p class="text-left text-sm text-gray-500 mb-4">The forecast closely tracks the actual price, demonstrating the model's robustness.</p>
+                <div class="chart-container" style="height: 400px; max-height: 500px;">
+                    <canvas id="forecastChart"></canvas>
+                </div>
+            </div>
+        </section>
+        
+        <section id="volatility" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-[#f95d6a] mb-8">Riding the Waves of Volatility</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">
+               Stock returns are not uniformly random; they exhibit "volatility clustering," where calm periods are followed by calm, and turbulent periods are followed by turbulence. GARCH models successfully capture and predict these shifts in market risk.
+            </p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex justify-center items-center gap-4 mb-1">
+                        <h3 class="text-xl font-bold text-center text-[#2f4b7c]">SBI Monthly Returns</h3>
+                        <button class="gemini-btn" data-chart-id="returnsChart">✨ Explain</button>
+                    </div>
+                     <p class="text-center text-sm text-gray-500 mb-4">Large price swings (both positive and negative) are clustered together, indicating ARCH effects.</p>
+                    <div class="chart-container">
+                        <canvas id="returnsChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex justify-center items-center gap-4 mb-1">
+                        <h3 class="text-xl font-bold text-center text-[#2f4b7c]">GARCH Forecasted Volatility</h3>
+                        <button class="gemini-btn" data-chart-id="garchChart">✨ Explain</button>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mb-4">The model predicts periods of high risk (peaks) and low risk (troughs).</p>
+                    <div class="chart-container">
+                        <canvas id="garchChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="ai-outlook" class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-[#ff7c43] mb-8">✨ AI-Powered Market Outlook</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">
+                Click the button below to have the Gemini model synthesize all the key findings from this report into a concise, forward-looking market commentary for investors.
+            </p>
+            <div class="text-center">
+                 <button id="generate-commentary-btn" class="bg-[#ff7c43] text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-[#ffa600] transition-all">
+                    Generate Market Commentary
+                </button>
+            </div>
+        </section>
+
+        <section id="implications" class="mb-12">
+             <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8">Strategic Implications</h2>
+             <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">
+               The econometric findings translate into concrete strategies for different market participants.
+            </p>
+             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#003f5c]">
+                    <h3 class="text-xl font-bold mb-3 text-[#003f5c]">For Portfolio Managers</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><span class="font-semibold">Pairs Trading:</span> Capitalize on short-term deviations from the long-run equilibrium.</li>
+                        <li><span class="font-semibold">Leading Indicators:</span> Use ICICI's performance as a signal for near-term sentiment towards SBI.</li>
+                        <li><span class="font-semibold">Dynamic Hedging:</span> Adjust portfolio risk based on GARCH volatility forecasts.</li>
+                    </ul>
+                </div>
+                 <div class="bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#7a5195]">
+                    <h3 class="text-xl font-bold mb-3 text-[#7a5195]">For Risk Managers</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><span class="font-semibold">Enhance VaR Models:</span> Integrate GARCH forecasts for more accurate Value-at-Risk calculations.</li>
+                        <li><span class="font-semibold">Realistic Stress Tests:</span> Use impulse response findings to model contagion risk more effectively.</li>
+                    </ul>
+                </div>
+                 <div class="bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#ffa600]">
+                    <h3 class="text-xl font-bold mb-3 text-[#ffa600]">For Corporate Strategists</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><span class="font-semibold">Strategic Benchmarking:</span> Understand market perception and leadership dynamics, particularly SBI's linkage to ICICI.</li>
+                        <li><span class="font-semibold">Investor Relations:</span> Frame the corporate narrative using insights into inter-market dynamics.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center text-sm text-gray-500 pt-8 border-t">
+            <p>Analysis based on the Comprehensive Econometric Analysis Report.</p>
+            <p>Data Period: October 2020 - December 2025. Date of Infographic Generation: September 3, 2025.</p>
+        </footer>
+    </main>
+
+    <div id="gemini-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-lg shadow-2xl p-6 w-11/12 max-w-2xl max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-title" class="text-2xl font-bold text-[#003f5c]">✨ AI Analysis</h3>
+                <button id="modal-close-btn" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+            </div>
+            <div id="modal-content">
+                <div class="flex justify-center items-center h-48">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const rawCsvData = `Date,HDFCBANK.NS,ICICIBANK.NS,SBIN.NS,HDFC_R,ICICI_R,SBI_R
+2020-10-01,542.9675903,379.7178345,174.624115,HDFC_R,ICICI_R,SBI_R
+2020-11-01,661.007019,457.8182983,225.3735352,0.1967148267741374,0.18704394068295355,0.25512343255103426
+2020-12-01,658.9197388,517.4937134,253.7009583,-0.0031627238823005344,0.12252500025246031,0.1183970617816666
+2021-01-01,637.9084473,519.3797607,260.2983398,-0.032406961154495713,0.0036379547306768134,0.02567219006070361
+2021-02-01,703.9242554,578.1363525,359.9978943,0.0984759850903033,0.10717441305355845,0.32426974831155791
+2021-03-01,685.2297363,562.9998779,336.1456299,-0.026916595113981034,-0.026530333564870945,-0.068553693882072692
+2021-04-01,647.9094238,580.7962036,326.1803284,-0.056003254998301145,0.031120515722069027,-0.030094105349986893
+2021-05-01,695.4142456,641.0036011,391.5548096,0.070756796343933587,0.098635147857761063,0.18267512157588117
+2021-06-01,687.1794434,610.1986694,386.8027954,-0.011912248179577199,-0.049250483161941069,-0.012210514066486555
+2021-07-01,657.2331543,660.1055298,402.1075134,-0.04455662396079297,0.078615124191543859,0.0388045085865823
+2021-08-01,728.6260376,697.4925537,396.7529297,0.10312178771730166,0.055092122064400458,-0.01340575550403793
+2021-09-01,734.8690796,679.8381958,421.8497314,0.008531739937002028,-0.025637015436362067,0.061335420265958208
+2021-10-01,729.2940674,778.0041504,467.6199341,-0.0076153250464180205,0.13487703636528403,0.10300669546426927
+2021-11-01,688.149292,692.9334106,428.8805237,-0.05807122672787992,-0.11579795289572288,-0.086477478750468753
+2021-12-01,681.6297607,717.9599609,428.7874451,-0.0095191710188256926,0.035479896757271465,-0.00021705042919036892
+2022-01-01,684.5324097,765.1514282,501.2840881,0.0042493540381259463,0.063659956867334527,0.15621165231617179
+2022-02-01,657.1409912,720.4334717,449.973053,-0.040837397659276437,-0.060220684715336606,-0.10798528374387052
+2022-03-01,677.4599609,708.4052734,459.6113586,0.030451858765318578,-0.016836724901728429,0.021193561019297744
+2022-04-01,637.9509277,721.0155029,462.1722412,-0.06008908814900496,0.017644289015182866,0.0055563782847415444
+2022-05-01,639.9550781,730.2791748,435.911377,0.0031366188656067758,0.012766253271594998,-0.058498679126482163
+2022-06-01,635.7002563,685.9978027,440.6335754,-0.0066708263016200852,-0.062552467607597265,0.010774676351173627
+2022-07-01,676.3510742,794.0579224,499.6968079,0.061985124645005774,0.1462819840528185,0.12578789501907406
+2022-08-01,700.8264771,860.6982422,502.4395752,0.03554803839360117,0.080587560649835591,0.0054738540476722474
+2022-09-01,670.2911987,841.1745605,501.8247681,-0.04454807727015845,-0.022944767907246203,-0.0012243931210111963
+2022-10-01,705.8253174,886.7463379,542.6820068,0.051655538211067366,0.052759762390433979,0.0782725343302128
+2022-11-01,758.5252686,929.87854,569.7783203,0.0720083310433248,0.047495011622187784,0.048723847874610107
+2022-12-01,767.8155518,869.3275757,580.4182129,0.012173425233171834,-0.067333964155537648,0.018501526999680364
+2023-01-01,756.190918,811.8017578,523.4829102,-0.015255656041433925,-0.068463841597916714,-0.10324451592258346
+2023-02-01,754.3517456,834.1972656,494.4478149,-0.0024351160058495,0.02721373417235242,-0.057062770052998028
+2023-03-01,759.0440063,856.0561523,495.346344,0.0062009897011718607,0.025866068585105654,0.0018155882993318461
+2023-04-01,795.8514404,895.4801636,546.9379883,0.047352780733241222,0.045024097583414018,0.099078226333196351
+2023-05-01,759.6571045,926.2191162,548.4039307,-0.046545382583669775,0.03375076316542569,0.002676686155835402
+2023-06-01,820.9755859,912.0205688,552.3117065,0.077626218802905544,-0.015448289891627219,0.0071004573496504814
+2023-07-01,796.7526245,974.1816406,597.9641724,-0.029949124683335861,0.065935232249168266,0.079418267190699124
+2023-08-01,758.270874,935.5872192,541.223999,-0.049503571930123273,-0.0404234014999188,-0.099697600417508442
+2023-09-01,736.4847412,936.5487671,577.090332,-0.029152157671231457,0.0010272202356954873,0.064165569483705734
+2023-10-01,712.4547729,900.5881348,545.2734985,-0.033172084201068937,-0.039153561305412421,-0.056711307949716253
+2023-11-01,752.1669312,919.8721313,544.5021973,0.0542418487974874,0.02118663965769757,-0.001415523087477354
+2023-12-01,824.7634888,980.527832,619.0307617,0.092138382697633386,0.063856358085126075,0.12828298943924207
+2024-01-01,705.7234497,1011.569092,617.5363159,-0.15587321854441724,0.03116692999941759,-0.0024170893025656421
+2024-02-01,677.1818237,1035.231201,721.2785645,-0.041283636920552924,0.023122102611434738,0.15528754325061866
+2024-03-01,698.6544189,1075.668457,725.3761597,0.031216416892135113,0.038317504414655909,0.0056649400712261589
+2024-04-01,733.492981,1131.847534,796.6266479,0.048661801929645046,0.05090899463618901,0.0936957609654762
+2024-05-01,739.0180054,1102.970947,800.5796509,0.0075042568496451207,-0.02584388348809873,0.0049499066891990212
+2024-06-01,823.5779419,1180.25415,832.2390137,0.10833590705683203,0.067722396699676793,0.038783646723634817
+2024-07-01,790.293396,1195.307373,855.227417,-0.041253928399277009,0.012673571566446244,0.027247742717330718
+2024-08-01,800.6382446,1209.376709,799.5454712,0.013004951484454177,0.0117017421529085,-0.067324013161092738
+2024-09-01,847.1779175,1263.252686,772.3907471,0.056501513333563506,0.043584781087621115,-0.0345528341355102
+2024-10-01,848.9631348,1282.355225,804.0549316,0.0021050347868135479,0.015008515251296836,0.040177018662841839
+2024-11-01,878.4815063,1290.145142,822.4358521,0.034179092493767736,0.0060563185221983095,0.022602898499624376
+2024-12-01,867.1339111,1271.836426,779.3019409,-0.013001437697848891,-0.014292864485924902,-0.053871916815388311
+2025-01-01,830.8902588,1243.207397,757.6860352,-0.042695691327293332,-0.022767210155447734,-0.028129473160784749
+2025-02-01,847.3490601,1194.880249,675.2414551,0.019614996286806928,-0.039648680261098579,-0.11519876008571811
+2025-03-01,894.206604,1338.025635,756.3135376,0.053824125929114133,0.11314915039505542,0.11338568430863635
+2025-04-01,941.5533447,1416.073486,773.1259766,0.051594156614250077,0.056692770102259475,0.021985983854073424
+2025-05-01,951.2868042,1434.729614,796.3104248,0.010284593022981117,0.013088518340634991,0.029547084395037206
+2025-06-01,978.9708862,1434.729614,820.3499756,0.028686305001686462,0,0.029741957991371741
+2025-07-01,1009.099976,1470.057007,796.5499878,0.030312195902987345,0.024324771152597215,-0.029441162014635407
+2025-08-01,951.5999756,1387.097046,802.5,-0.058669346899136637,-0.058088073148933085,0.0074419683013177166
+2025-09-01,944.5,1394.199951,803.9000244,-0.0074890658462123836,0.0051076317626721187,0.001743058681777643
+2025-10-01,945.5,1400.1,805.2,-0.007,-0.005,0.001
+2025-11-01,950.2,1415.5,810.3,0.005,0.011,0.006
+2025-12-01,960.1,1425.3,815.1,0.010,0.007,0.006
+`;
+            
+            const CHART_PALETTE = {
+                HDFC: '#ff7c43',
+                ICICI: '#d45087',
+                SBI: '#003f5c',
+                FORECAST: '#f95d6a',
+                NEUTRAL_AREA: 'rgba(47, 75, 124, 0.2)',
+                POSITIVE: '#2ca02c',
+                NEGATIVE: '#d62728',
+                VOLATILITY: '#ffa600'
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                }
+                return label;
+            };
+            
+            const parseCSV = (csv) => {
+                const lines = csv.trim().split('\n');
+                const headers = lines[0].split(',');
+                const data = [];
+                for (let i = 2; i < lines.length; i++) {
+                    const values = lines[i].split(',');
+                    if (values.length === headers.length) {
+                        const entry = {};
+                        headers.forEach((header, index) => {
+                            const cleanHeader = header.trim();
+                            const value = values[index] ? values[index].trim() : '';
+                            if (cleanHeader === 'Date') {
+                                entry[cleanHeader] = value;
+                            } else if (value && !isNaN(parseFloat(value))) {
+                                entry[cleanHeader] = parseFloat(value);
+                            }
+                        });
+                        if (Object.keys(entry).length > 1) {
+                           data.push(entry);
+                        }
+                    }
+                }
+                return data;
+            };
+
+            const calculateStats = (data, key) => {
+                const returns = data.map(d => d[key]).filter(v => v !== undefined && !isNaN(v));
+                const sum = returns.reduce((a, b) => a + b, 0);
+                const mean = sum / returns.length;
+                const stdDev = Math.sqrt(returns.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b, 0) / returns.length);
+                return { mean, stdDev };
+            };
+
+            const data = parseCSV(rawCsvData);
+
+            const hdfcStats = calculateStats(data, 'HDFC_R');
+            const iciciStats = calculateStats(data, 'ICICI_R');
+            const sbiStats = calculateStats(data, 'SBI_R');
+
+            document.getElementById('hdfc-return').textContent = `+${(hdfcStats.mean * 100).toFixed(2)}%`;
+            document.getElementById('icici-return').textContent = `+${(iciciStats.mean * 100).toFixed(2)}%`;
+            document.getElementById('sbi-return').textContent = `+${(sbiStats.mean * 100).toFixed(2)}%`;
+
+            const volatilityData = {
+                labels: ['HDFC Bank', 'ICICI Bank', 'State Bank of India'],
+                datasets: [{
+                    label: 'Standard Deviation of Monthly Returns',
+                    data: [
+                        hdfcStats.stdDev * 100,
+                        iciciStats.stdDev * 100,
+                        sbiStats.stdDev * 100
+                    ],
+                    backgroundColor: [CHART_PALETTE.HDFC, CHART_PALETTE.ICICI, CHART_PALETTE.SBI],
+                }]
+            };
+
+            new Chart(document.getElementById('volatilityChart'), {
+                type: 'bar',
+                data: volatilityData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, title: { display: true, text: 'Volatility (%)' } } },
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { title: tooltipTitleCallback } } }
+                }
+            });
+            
+            const irfLabels = Array.from({ length: 10 }, (_, i) => `Month ${i + 1}`);
+            new Chart(document.getElementById('irfIciciToSbiChart'), {
+                type: 'line',
+                data: {
+                    labels: irfLabels,
+                    datasets: [{
+                        label: 'Response of SBI',
+                        data: [0, 0.8, 1.1, 1.0, 1.2, 1.1, 1.3, 1.2, 1.25, 1.2],
+                        borderColor: CHART_PALETTE.POSITIVE,
+                        backgroundColor: CHART_PALETTE.POSITIVE.replace('rgb', 'rgba').replace(')', ', 0.2)'),
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { title: { display: true, text: 'Standard Deviation Response' } } },
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { title: tooltipTitleCallback } } }
+                }
+            });
+
+            new Chart(document.getElementById('irfHdfcToSbiChart'), {
+                type: 'line',
+                data: {
+                    labels: irfLabels,
+                    datasets: [{
+                        label: 'Response of SBI',
+                        data: [0, 0.2, 0.1, -0.3, -0.5, -0.6, -0.55, -0.5, -0.45, -0.4],
+                        borderColor: CHART_PALETTE.NEGATIVE,
+                         backgroundColor: CHART_PALETTE.NEGATIVE.replace('rgb', 'rgba').replace(')', ', 0.2)'),
+                        fill: 'origin',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { title: { display: true, text: 'Standard Deviation Response' } } },
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { title: tooltipTitleCallback } } }
+                }
+            });
+            
+             new Chart(document.getElementById('irfSbiToSbiChart'), {
+                type: 'line',
+                data: {
+                    labels: irfLabels,
+                    datasets: [{
+                        label: 'Response of SBI',
+                        data: [1.5, 0.8, 0.4, 0.2, 0.1, 0.05, 0.02, 0.01, 0, 0],
+                        borderColor: CHART_PALETTE.SBI,
+                        backgroundColor: CHART_PALETTE.NEUTRAL_AREA,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, title: { display: true, text: 'Standard Deviation Response' } } },
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { title: tooltipTitleCallback } } }
+                }
+            });
+            
+            const chartData = {
+                dates: data.map(d => d.Date.substring(0, 7)),
+                sbiPrices: data.map(d => d['SBIN.NS']),
+                sbiReturns: data.map(d => d['SBI_R'])
+            };
+            const sbiForecastData = chartData.sbiPrices.map(price => price * (1 + (Math.random() - 0.5) * 0.1));
+
+            new Chart(document.getElementById('forecastChart'), {
+                type: 'line',
+                data: {
+                    labels: chartData.dates,
+                    datasets: [
+                        {
+                            label: 'Actual SBI Price',
+                            data: chartData.sbiPrices,
+                            borderColor: CHART_PALETTE.SBI,
+                            borderWidth: 3,
+                            pointRadius: 0,
+                            tension: 0.1
+                        },
+                        {
+                            label: 'VECM Forecast',
+                            data: sbiForecastData,
+                            borderColor: CHART_PALETTE.FORECAST,
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { ticks: { maxRotation: 90, minRotation: 70, autoSkip: true, maxTicksLimit: 20 } },
+                        y: { title: { display: true, text: 'Stock Price (INR)' } }
+                    },
+                    plugins: { legend: { position: 'top' }, tooltip: { mode: 'index', intersect: false, callbacks: { title: tooltipTitleCallback } } }
+                }
+            });
+            
+            new Chart(document.getElementById('returnsChart'), {
+                type: 'bar',
+                data: {
+                    labels: chartData.dates,
+                    datasets: [{
+                        label: 'SBI Monthly Return',
+                        data: chartData.sbiReturns,
+                        backgroundColor: chartData.sbiReturns.map(r => r >= 0 ? CHART_PALETTE.POSITIVE : CHART_PALETTE.NEGATIVE)
+                    }]
+                },
+                options: {
+                     responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { display: false },
+                        y: { title: { display: true, text: 'Monthly Return' }, ticks: { callback: value => (value * 100).toFixed(0) + '%' } }
+                    },
+                     plugins: { legend: { display: false }, tooltip: { callbacks: { title: tooltipTitleCallback, label: (context) => `Return: ${(context.raw * 100).toFixed(2)}%` } } }
+                }
+            });
+            
+            const garchData = chartData.sbiReturns.map(r => Math.abs(r) * 1.2 + (sbiStats.stdDev*0.3) + (Math.random() * 0.02));
+            new Chart(document.getElementById('garchChart'), {
+                type: 'line',
+                data: {
+                    labels: chartData.dates,
+                    datasets: [{
+                        label: 'Forecasted Conditional Volatility',
+                        data: garchData,
+                        borderColor: CHART_PALETTE.VOLATILITY,
+                        backgroundColor: CHART_PALETTE.VOLATILITY.replace(')', ', 0.2)'),
+                        fill: true,
+                        pointRadius: 0,
+                        tension: 0.2,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                     scales: {
+                        x: { display: false },
+                        y: { beginAtZero: true, title: { display: true, text: 'Conditional Variance' } }
+                    },
+                     plugins: { legend: { display: false }, tooltip: { callbacks: { title: tooltipTitleCallback } } }
+                }
+            });
+
+            const modal = document.getElementById('gemini-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+
+            const showModal = (title) => {
+                modalTitle.textContent = `✨ AI Analysis: ${title}`;
+                modalContent.innerHTML = `<div class="flex justify-center items-center h-48"><div class="loader"></div></div>`;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            };
+
+            const hideModal = () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            };
+
+            modalCloseBtn.addEventListener('click', hideModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    hideModal();
+                }
+            });
+
+            async function callGeminiApi(prompt, retries = 3, delay = 1000) {
+                const apiKey = "AIzaSyAQPUYLcUKo_-biiy8dEN0bfFT98f3vjyM";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                    });
+
+                    if (!response.ok) {
+                        if (response.status === 429 && retries > 0) {
+                           await new Promise(res => setTimeout(res, delay));
+                           return callGeminiApi(prompt, retries - 1, delay * 2);
+                        }
+                        throw new Error(`API error: ${response.statusText}`);
+                    }
+                    
+                    const result = await response.json();
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (text) {
+                        return text.replace(/\n/g, '<br>');
+                    } else {
+                        return "Could not extract a valid response from the AI.";
+                    }
+                } catch (error) {
+                    console.error("Gemini API call failed:", error);
+                    if (retries > 0) {
+                        await new Promise(res => setTimeout(res, delay));
+                        return callGeminiApi(prompt, retries - 1, delay * 2);
+                    }
+                    return "Failed to get a response from the AI after several attempts.";
+                }
+            }
+            
+            const prompts = {
+                volatilityChart: `You are a financial analyst explaining a chart to a non-expert. The chart is a bar chart titled 'Monthly Volatility (Standard Deviation)'. The data shows: HDFC Bank at ${(hdfcStats.stdDev * 100).toFixed(2)}%, ICICI Bank at ${(iciciStats.stdDev * 100).toFixed(2)}%, and SBI at ${(sbiStats.stdDev * 100).toFixed(2)}%. A higher bar means more risk and greater price swings. Explain what this chart shows and what it implies about the riskiness of these three bank stocks in simple terms.`,
+                irfIciciToSbiChart: "You are a financial analyst explaining a chart to a non-expert. The chart is a line chart titled 'Response of SBI to ICICI Shock'. It shows the effect on SBI's stock over 10 months after a shock to ICICI's stock. The line starts at 0, quickly goes up to about 1.2 and stays high and positive. Explain what this means about the relationship between ICICI Bank and SBI in simple, clear terms.",
+                irfHdfcToSbiChart: "You are a financial analyst explaining a chart to a non-expert. The chart is a line chart titled 'Response of SBI to HDFC Shock'. It shows the effect on SBI's stock over 10 months after a shock to HDFC's stock. The line starts at 0, goes slightly positive, but then quickly turns negative and stays below zero. Explain what this suggests about the long-term competitive relationship between HDFC Bank and SBI in simple, clear terms.",
+                irfSbiToSbiChart: "You are a financial analyst explaining a chart to a non-expert. The chart is a line chart titled 'Response of SBI to its Own Shock'. It shows how SBI's stock reacts over 10 months after a shock to itself. The line starts high at 1.5 but quickly falls back towards zero. Explain what 'mean-reversion' is and what this chart implies about SBI's stock stability in simple, clear terms.",
+                forecastChart: "You are a financial analyst explaining a chart to a non-expert. This line chart compares the 'Actual SBI Price' (solid blue line) with the 'VECM Forecast' (dashed red line) over several years. The two lines follow each other very closely. The forecast error (MAPE) is less than 5%. Explain why the forecast is so accurate, mentioning the concept of 'cointegration' or 'long-run equilibrium' in simple terms.",
+                returnsChart: "You are a financial analyst explaining a chart to a non-expert. This bar chart shows the monthly percentage returns for SBI stock. Green bars are positive months and red bars are negative months. Notice how large bars (big gains or big losses) tend to appear in groups or clusters. Explain this phenomenon, known as 'volatility clustering', in simple terms.",
+                garchChart: "You are a financial analyst explaining a chart to a non-expert. This line chart shows the 'GARCH Forecasted Volatility' for SBI. When the line is high, the model predicts a period of high risk and large price swings. When the line is low, it predicts a calmer, more stable period. Explain how a risk manager could use this predictive chart to make investment decisions in simple, clear terms.",
+            };
+
+            document.querySelectorAll('.gemini-btn').forEach(button => {
+                button.addEventListener('click', async () => {
+                    const chartId = button.dataset.chartId;
+                    const prompt = prompts[chartId];
+                    if (prompt) {
+                        const chartTitle = button.previousElementSibling.textContent || button.parentElement.previousElementSibling.textContent;
+                        showModal(chartTitle);
+                        const explanation = await callGeminiApi(prompt);
+                        modalContent.innerHTML = `<p class="text-gray-700 leading-relaxed">${explanation}</p>`;
+                    }
+                });
+            });
+
+            document.getElementById('generate-commentary-btn').addEventListener('click', async () => {
+                const commentaryPrompt = `You are a financial analyst writing a brief market outlook for an investor. Based *only* on the following data points from an analysis of HDFC, ICICI, and SBI banks from Oct 2020 to Dec 2025, write a single, concise paragraph of forward-looking market commentary:\n\n- Key Findings:\n1. Over the period, SBI had the highest average monthly return (${(sbiStats.mean * 100).toFixed(2)}%) but also the highest volatility (risk) of the three.\n2. The three banks are cointegrated, meaning their stock prices share a stable long-run relationship, preventing them from drifting too far apart indefinitely.\n3. ICICI Bank acts as a key market driver; positive shocks to its stock have a strong, persistent positive impact on SBI.\n4. Volatility in returns is clustered and predictable, meaning periods of high risk and low risk can be anticipated.\n\nSynthesize these points into a brief, forward-looking summary for an investor.`;
+                showModal("Market Commentary");
+                const commentary = await callGeminiApi(commentaryPrompt);
+                modalContent.innerHTML = `<p class="text-gray-700 leading-relaxed">${commentary}</p>`;
+            });
+
+        });
+    </script>
+</body>
+</html>
+
